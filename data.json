@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nama": "Kamar Exclusif A1",
+    "kategori": "AC",
+    "harga": 1200000,
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "Kasur Springbed", "Wi-Fi"],
+    "tersedia": true,
+    "gambar": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 2,
+    "nama": "Kamar Standard B2",
+    "kategori": "Non-AC",
+    "harga": 700000,
+    "fasilitas": ["Kipas Angin", "Kamar Mandi Luar", "Kasur Foam", "Wi-Fi"],
+    "tersedia": true,
+    "gambar": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 3,
+    "nama": "Kamar VIP C1",
+    "kategori": "AC",
+    "harga": 1500000,
+    "fasilitas": ["AC", "Kamar Mandi Dalam", "TV", "Water Heater", "Wi-Fi"],
+    "tersedia": false,
+    "gambar": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80"
+  }
+]
