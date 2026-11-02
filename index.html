@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Kost - UMKM</title>
-  <!-- Script Tailwind CSS CDN -->
+  <title>Katalog Kost UMKM</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Konfigurasi Tailwind untuk mendukung class-based Dark Mode
-    tailwind.config = {
-      darkMode: 'class',
-    }
+    tailwind.config = { darkMode: 'class' }
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-  <div id="app" class="max-w-4xl mx-auto p-4">
-    <header class="py-6 border-b border-gray-200 dark:border-gray-700">
-      <h1 class="text-3xl font-bold">Katalog Kost Impian</h1>
-      <p class="text-sm text-gray-600 dark:text-gray-400">Hunian nyaman dan terjangkau</p>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <!-- Header -->
+    <header class="flex justify-between items-center py-4 border-b border-gray-200 dark:border-gray-800 mb-8">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-indigo-600 dark:text-indigo-400">Kost Purnamasari</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Hunian Nyaman & Terjangkau</p>
+      </div>
+      <!-- Tombol Dark Mode -->
+      <button id="theme-toggle" class="p-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+        🌙 / ☀️
+      </button>
     </header>
-    <main class="mt-6">
-      <p>Selamat datang di sistem manajemen katalog kost.</p>
+
+    <!-- Content / Grid Kost -->
+    <main>
+      <h2 class="text-xl font-bold mb-4">Daftar Kamar</h2>
+      <div id="kost-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
     </main>
   </div>
 
