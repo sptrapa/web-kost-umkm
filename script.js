@@ -82,8 +82,38 @@ function setupDarkMode() {
   });
 }
 
+// 4. Logika Filter Kategori
+function setupFilter() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      // 1. Ubah gaya tombol yang aktif (Active State)
+      filterBtns.forEach(b => {
+        b.classList.remove("bg-indigo-600", "text-white", "border-indigo-600");
+        b.classList.add("bg-white", "dark:bg-gray-800", "text-gray-700", "dark:text-gray-300", "border-gray-300", "dark:border-gray-700");
+      });
+      
+      const target = e.target;
+      target.classList.remove("bg-white", "dark:bg-gray-800", "text-gray-700", "dark:text-gray-300", "border-gray-300", "dark:border-gray-700");
+      target.classList.add("bg-indigo-600", "text-white", "border-indigo-600");
+
+      // 2. Filter data berdasarkan atribut "data-filter"
+      const filterValue = target.getAttribute("data-filter");
+      
+      if (filterValue === "semua") {
+        renderKostList(dataKost); // Tampilkan semua
+      } else {
+        const filteredData = dataKost.filter(item => item.kategori === filterValue);
+        renderKostList(filteredData); // Tampilkan yang difilter
+      }
+    });
+  });
+}
+
 // Inisialisasi saat DOM siap
 document.addEventListener("DOMContentLoaded", () => {
   renderKostList(dataKost);
   setupDarkMode();
+  setupFilter(); // Tambahkan baris ini
 });
