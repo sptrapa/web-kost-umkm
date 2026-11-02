@@ -1,119 +1,104 @@
-// 1. Data Kost (Mock Data)
+// 1. Data Kost (Mock Data Tetap)
 const dataKost = [
-  {
-    id: 1,
-    nama: "Kamar Exclusif A1",
-    kategori: "AC",
-    harga: 1200000,
-    fasilitas: ["AC", "Kamar Mandi Dalam", "Kasur Springbed", "Wi-Fi"],
-    tersedia: true,
-    gambar: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    id: 2,
-    nama: "Kamar Standard B2",
-    kategori: "Non-AC",
-    harga: 700000,
-    fasilitas: ["Kipas Angin", "Kamar Mandi Luar", "Kasur Foam", "Wi-Fi"],
-    tersedia: true,
-    gambar: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    id: 3,
-    nama: "Kamar VIP C1",
-    kategori: "AC",
-    harga: 1500000,
-    fasilitas: ["AC", "Kamar Mandi Dalam", "TV", "Water Heater", "Wi-Fi"],
-    tersedia: false,
-    gambar: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80"
-  }
+  { id: 1, nama: "Kamar Exclusif A1", kategori: "AC", harga: 1200000, fasilitas: ["AC", "Kamar Mandi Dalam", "Wi-Fi"], tersedia: true, gambar: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80" },
+  { id: 2, nama: "Kamar Standard B2", kategori: "Non-AC", harga: 700000, fasilitas: ["Kipas Angin", "Kamar Mandi Luar", "Wi-Fi"], tersedia: true, gambar: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80" },
+  { id: 3, nama: "Kamar VIP C1", kategori: "AC", harga: 1500000, fasilitas: ["AC", "Kamar Mandi Dalam", "TV", "Wi-Fi"], tersedia: false, gambar: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80" }
 ];
 
-// 2. Fungsi Render Daftar Kost ke DOM
-function renderKostList(items) {
+// 2. STATE KITA (Jantung dari aplikasi, ala React)
+let state = {
+  kamar: dataKost,
+  filterAktif: "semua", // bisa 'semua', 'AC', atau 'Non-AC'
+  tema: localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+};
+
+// 3. FUNGSI RENDER UTAMA (UI = f(state))
+// Fungsi ini HANYA bertugas membaca State lalu menggambar HTML
+function renderApp() {
+  renderTema();
+  renderFilterButtons();
+  renderDaftarKamar();
+}
+
+function renderTema() {
+  if (state.tema === "dark") {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+}
+
+function renderFilterButtons() {
+  const filterContainer = document.getElementById("filter-container");
+  if (!filterContainer) return;
+
+  const categories = ["semua", "AC", "Non-AC"];
+  filterContainer.innerHTML = categories.map(cat => {
+    // Tombol akan berwarna biru (aktif) JIKA nilai 'cat' sama dengan 'state.filterAktif'
+    const isActive = state.filterAktif === cat;
+    const baseClass = "px-4 py-2 border rounded-lg text-sm font-medium transition capitalize";
+    const activeClass = isActive 
+      ? "bg-indigo-600 text-white border-indigo-600" 
+      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700";
+    
+    return `<button class="${baseClass} ${activeClass}" onclick="handleFilterChange('${cat}')">${cat}</button>`;
+  }).join('');
+}
+
+function renderDaftarKamar() {
   const container = document.getElementById("kost-list");
   if (!container) return;
 
-  if (items.length === 0) {
-    container.innerHTML = `<p class="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">Tidak ada kamar yang cocok.</p>`;
+  // Filter data murni berdasarkan State
+  const dataFiltered = state.filterAktif === "semua" 
+    ? state.kamar 
+    : state.kamar.filter(item => item.kategori === state.filterAktif);
+
+  if (dataFiltered.length === 0) {
+    container.innerHTML = `<p class="col-span-full text-center py-8">Tidak ada kamar.</p>`;
     return;
   }
 
-  container.innerHTML = items.map(item => `
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition">
+  container.innerHTML = dataFiltered.map(item => `
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
       <img src="${item.gambar}" alt="${item.nama}" class="w-full h-48 object-cover" />
       <div class="p-5">
         <div class="flex justify-between items-start mb-2">
           <h3 class="font-bold text-lg text-gray-900 dark:text-white">${item.nama}</h3>
-          <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full ${item.tersedia ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300'}">
+          <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full ${item.tersedia ? 'bg-green-100 text-green-800 dark:bg-green-900/40' : 'bg-red-100 text-red-800 dark:bg-red-900/40'}">
             ${item.tersedia ? 'Tersedia' : 'Penuh'}
           </span>
         </div>
         <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xl mb-3">
-          Rp ${item.harga.toLocaleString('id-ID')} <span class="text-xs font-normal text-gray-500 dark:text-gray-400">/ bulan</span>
+          Rp ${item.harga.toLocaleString('id-ID')}
         </p>
-        <div class="flex flex-wrap gap-1.5 mb-4">
-          ${item.fasilitas.map(f => `<span class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded">${f}</span>`).join('')}
+        <div class="flex flex-wrap gap-1.5">
+          ${item.fasilitas.map(f => `<span class="bg-gray-100 dark:bg-gray-700 text-xs px-2 py-1 rounded">${f}</span>`).join('')}
         </div>
       </div>
     </div>
   `).join('');
 }
 
-// 3. Logika Dark Mode
-function setupDarkMode() {
-  const toggleBtn = document.getElementById("theme-toggle");
-  if (!toggleBtn) return;
-
-  // Cek preferensi awal
-  if (localStorage.getItem("theme") === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-
-  toggleBtn.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-    if (document.documentElement.classList.contains("dark")) {
-      localStorage.setItem("theme", "dark");
-    } else {
-      localStorage.setItem("theme", "light");
-    }
-  });
+// 4. ACTIONS (Fungsi untuk MENGUBAH State, lalu memanggil renderApp)
+function handleFilterChange(kategoriBaru) {
+  state.filterAktif = kategoriBaru; // 1. Ubah state
+  renderApp(); // 2. Render ulang
 }
 
-// 4. Logika Filter Kategori
-function setupFilter() {
-  const filterBtns = document.querySelectorAll(".filter-btn");
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      // 1. Ubah gaya tombol yang aktif (Active State)
-      filterBtns.forEach(b => {
-        b.classList.remove("bg-indigo-600", "text-white", "border-indigo-600");
-        b.classList.add("bg-white", "dark:bg-gray-800", "text-gray-700", "dark:text-gray-300", "border-gray-300", "dark:border-gray-700");
-      });
-      
-      const target = e.target;
-      target.classList.remove("bg-white", "dark:bg-gray-800", "text-gray-700", "dark:text-gray-300", "border-gray-300", "dark:border-gray-700");
-      target.classList.add("bg-indigo-600", "text-white", "border-indigo-600");
-
-      // 2. Filter data berdasarkan atribut "data-filter"
-      const filterValue = target.getAttribute("data-filter");
-      
-      if (filterValue === "semua") {
-        renderKostList(dataKost); // Tampilkan semua
-      } else {
-        const filteredData = dataKost.filter(item => item.kategori === filterValue);
-        renderKostList(filteredData); // Tampilkan yang difilter
-      }
-    });
-  });
+function handleToggleTema() {
+  state.tema = state.tema === "light" ? "dark" : "light"; // 1. Ubah state
+  renderApp(); // 2. Render ulang
 }
 
-// Inisialisasi saat DOM siap
+// 5. Inisialisasi Aplikasi
 document.addEventListener("DOMContentLoaded", () => {
-  renderKostList(dataKost);
-  setupDarkMode();
-  setupFilter(); // Tambahkan baris ini
+  // Pasang event listener untuk tombol tema (karena tombol ini ada di HTML statis, bukan di-render JS)
+  const themeBtn = document.getElementById("theme-toggle");
+  if (themeBtn) themeBtn.addEventListener("click", handleToggleTema);
+
+  // Jalankan render pertama kali
+  renderApp();
 });
