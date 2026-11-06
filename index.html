@@ -10,6 +10,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -223,22 +224,272 @@
 
     <main>
 
-        <section id="home" class="min-h-[55vh] flex items-center justify-center px-5">
-            <div class="text-center max-w-xl">
-                <p class="text-xs tracking-[0.3em] uppercase text-brown mb-4">
-                    Welcome to Kost Boiman
-                </p>
 
-                <h1 class="text-4xl md:text-6xl font-semibold tracking-tight mb-5">
-                    Your Comfort,<br>
-                    Our Priority.
-                </h1>
+<!-- ==========================================
+     HERO SECTION
+=========================================== -->
 
-                <p class="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
-                    Hunian nyaman untuk mendukung aktivitas dan keseharian Anda.
-                </p>
+  <section id="home" class="relative min-h-[620px] md:min-h-[700px] flex items-center overflow-hidden">
+
+      <!-- Background Image -->
+      <div class="absolute inset-0">
+          <img
+              src="assets/images/hero.jpeg"
+              alt="Hunian Kost Boiman"
+              class="w-full h-full object-cover"
+          >
+
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/45"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full px-5 lg:px-10 py-24">
+
+          <div class="max-w-2xl">
+
+              <p class="text-xs md:text-sm uppercase tracking-[0.35em] text-[#E9DCC8] mb-6">
+                  Welcome to Kost Boiman
+              </p>
+
+              <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold text-white leading-[1.15] tracking-tight mb-7">
+                  A Place to Feel
+                  <span class="font-normal italic text-[#E9DCC8]">
+                      at Home.
+                  </span>
+              </h1>
+
+              <p class="text-sm md:text-base text-gray-200 leading-relaxed max-w-lg mb-10">
+                  Temukan hunian yang nyaman untuk mendukung aktivitas
+                  dan keseharian Anda. Kost Boiman hadir sebagai pilihan
+                  tempat tinggal yang praktis dan bersahabat.
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4">
+
+                  <!-- Lihat Kamar -->
+                  <a
+                      href="#rooms"
+                      class="px-7 py-3.5 bg-[#E9E2D6] text-[#292824] text-sm font-semibold hover:bg-white transition duration-300">
+                      Explore Our Rooms
+                  </a>
+
+                  <!-- Hubungi Kami -->
+                  <a
+                      href="https://wa.me/6281234567890"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-7 py-3.5 border border-white/70 text-white text-sm hover:bg-white hover:text-charcoal transition duration-300">
+                      Contact Us
+                  </a>
+
+              </div>
+
+          </div>
+
+      </div>
+
+      <!-- Bottom Label -->
+      <div class="absolute bottom-7 right-5 lg:right-10 text-white/80 text-xs tracking-widest uppercase">
+          Comfortable Living
+      </div>
+
+  </section>
+
+
+<!-- ==========================================
+     ABOUT KOST
+=========================================== -->
+
+<section id="about"
+    class="py-20 md:py-28 bg-cream dark:bg-[#1D1D1B] transition-colors duration-300">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-10">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            <!-- About Image -->
+            <div class="relative">
+
+                <img
+                    src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85"
+                    alt="Interior hunian yang nyaman"
+                    class="w-full h-[350px] md:h-[480px] object-cover"
+                >
+
+                <div class="absolute -bottom-5 -right-3 md:-right-5 bg-[#E9E2D6] p-5 md:p-7">
+                    <p class="text-xs tracking-widest uppercase text-[#8B7355] mb-1">
+                        Our Philosophy
+                    </p>
+
+                    <p class="text-lg md:text-xl font-semibold text-charcoal">
+                        Comfort & Simplicity
+                    </p>
+                </div>
+
             </div>
-        </section>
+
+
+            <!-- About Content -->
+            <div class="pt-8 lg:pt-0">
+
+                <p class="text-xs uppercase tracking-[0.3em] text-brown mb-5">
+                    About Kost Boiman
+                </p>
+
+                <h2 class="text-3xl md:text-5xl font-semibold leading-tight tracking-tight mb-7">
+                    More Than Just
+                    <span class="italic font-normal text-brown">
+                        A Place to Stay.
+                    </span>
+                </h2>
+
+                <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-[1.9] mb-5">
+                    Kost Boiman merupakan pilihan hunian bagi Anda
+                    yang membutuhkan tempat tinggal untuk menunjang
+                    aktivitas sehari-hari.
+                </p>
+
+                <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-[1.9] mb-8">
+                    Dengan pilihan kamar dan fasilitas yang beragam,
+                    kami berupaya menghadirkan lingkungan tempat tinggal
+                    yang nyaman, praktis, dan sesuai dengan kebutuhan
+                    penghuninya.
+                </p>
+
+                <a
+                    href="#rooms"
+                    class="inline-flex items-center gap-3 text-sm font-semibold text-brown hover:gap-5 transition-all duration-300">
+
+                    Discover Our Rooms
+
+                    <span aria-hidden="true">→</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     WHY CHOOSE US
+=========================================== -->
+
+<section class="py-20 md:py-24 bg-[#EEE9E0] dark:bg-[#252522] transition-colors duration-300">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-10">
+
+        <!-- Section Heading -->
+        <div class="max-w-2xl mb-14">
+
+            <p class="text-xs uppercase tracking-[0.3em] text-brown mb-4">
+                Why Choose Us
+            </p>
+
+            <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-5">
+                A Comfortable Place for Your Everyday Life.
+            </h2>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                Kami menyediakan pilihan hunian dengan fasilitas
+                yang dirancang untuk mendukung kebutuhan sehari-hari.
+            </p>
+
+        </div>
+
+
+        <!-- Feature Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- Feature 1 -->
+            <div class="border-t border-[#CFC5B5] dark:border-gray-700 pt-7">
+
+                <span class="text-2xl text-brown">01</span>
+
+                <h3 class="text-lg font-semibold mt-5 mb-3">
+                    Comfortable Rooms
+                </h3>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Pilihan kamar dengan fasilitas yang dapat
+                    disesuaikan dengan kebutuhan penghuni.
+                </p>
+
+            </div>
+
+
+            <!-- Feature 2 -->
+            <div class="border-t border-[#CFC5B5] dark:border-gray-700 pt-7">
+
+                <span class="text-2xl text-brown">02</span>
+
+                <h3 class="text-lg font-semibold mt-5 mb-3">
+                    Flexible Choices
+                </h3>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Tersedia pilihan tipe kamar dengan harga
+                    dan fasilitas yang beragam.
+                </p>
+
+            </div>
+
+
+            <!-- Feature 3 -->
+            <div class="border-t border-[#CFC5B5] dark:border-gray-700 pt-7">
+
+                <span class="text-2xl text-brown">03</span>
+
+                <h3 class="text-lg font-semibold mt-5 mb-3">
+                    Easy Communication
+                </h3>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Hubungi pengelola kost dengan mudah melalui
+                    WhatsApp untuk informasi dan pemesanan kamar.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     ROOMS PLACEHOLDER
+=========================================== -->
+
+<section id="rooms"
+    class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
+
+    <h2 class="text-xl font-semibold">
+        Rooms — Akan kita buat pada Tahap 4
+    </h2>
+
+</section>
+
+
+<!-- ==========================================
+     CONTACT PLACEHOLDER
+=========================================== -->
+
+<section id="contact"
+    class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
+
+    <h2 class="text-xl font-semibold">
+        Contact Us — Akan kita buat pada Tahap 5
+    </h2>
+
+</section>
+
 
 
         <section id="rooms" class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
