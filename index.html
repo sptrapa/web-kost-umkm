@@ -1,46 +1,264 @@
+
 <!DOCTYPE html>
 <html lang="id" class="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Kost UMKM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class' }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kost Boiman | Hunian Nyaman</title>
+    <meta name="description" content="Kost Boiman - Hunian nyaman dengan fasilitas yang mendukung kebutuhan Anda.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F8F6F1',
+                        beige: '#E9E2D6',
+                        charcoal: '#292824',
+                        brown: '#8B7355'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 1.5px;
+            background: #8B7355;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        #mobile-menu {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #mobile-menu.hidden {
+            display: none;
+        }
+    </style>
+
+    <script src="script.js" defer></script>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
-  <div class="max-w-5xl mx-auto px-4 py-6">
-    <!-- Header -->
-    <header class="flex justify-between items-center py-4 border-b border-gray-200 dark:border-gray-800 mb-8">
-      <div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-indigo-600 dark:text-indigo-400">Kost Purnamasari</h1>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Hunian Nyaman & Terjangkau</p>
-      </div>
-      <!-- Tombol Dark Mode -->
-      <button id="theme-toggle" class="p-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-        🌙 / ☀️
-      </button>
-    </header>
 
-    <!-- Content / Grid Kost -->
+<body class="bg-cream text-charcoal dark:bg-[#1D1D1B] dark:text-gray-100 transition-colors duration-300">
 
-    <main>
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-        <h2 class="text-xl font-bold">Daftar Kamar</h2>
-        
-        <!-- Tombol Filter -->
+    <!-- TOP CONTACT BAR -->
+    <div class="bg-charcoal text-white dark:bg-black">
+        <div class="max-w-7xl mx-auto px-5 lg:px-10 py-2.5">
+            <div class="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 text-xs">
 
-        <div class="flex flex-wrap gap-2" id="filter-container">
-          <!-- Biarkan kosong, akan diisi otomatis oleh JavaScript -->
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6281234567890"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="hover:text-[#D6C2A5] transition">
+                    WhatsApp: 0812-3456-7890
+                </a>
+
+                <span class="hidden sm:block text-gray-500">|</span>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/kostboiman/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="hover:text-[#D6C2A5] transition">
+                    Instagram
+                </a>
+
+                <span class="hidden sm:block text-gray-500">|</span>
+
+                <!-- Email -->
+                <a href="mailto:kostboiman@example.com"
+                   class="hover:text-[#D6C2A5] transition">
+                    Email
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN HEADER -->
+    <header class="sticky top-0 z-50 bg-cream/95 dark:bg-[#1D1D1B]/95 backdrop-blur-md border-b border-[#E9E2D6] dark:border-gray-800">
+
+        <div class="max-w-7xl mx-auto px-5 lg:px-10">
+
+            <div class="h-20 flex items-center justify-between">
+
+                <!-- LOGO / BRAND -->
+                <a href="#home" class="flex flex-col group">
+                    <span class="text-2xl font-bold tracking-tight text-charcoal dark:text-white group-hover:text-brown transition">
+                        KOST BOIMAN
+                    </span>
+                    <span class="text-[10px] tracking-[0.25em] uppercase text-gray-500 dark:text-gray-400">
+                        Comfortable Living
+                    </span>
+                </a>
+
+
+                <!-- DESKTOP NAVIGATION -->
+                <nav class="hidden md:flex items-center gap-10">
+
+                    <a href="#home" class="nav-link text-sm font-medium">
+                        Home
+                    </a>
+
+                    <a href="#rooms" class="nav-link text-sm font-medium">
+                        Rooms
+                    </a>
+
+                    <a href="#contact" class="nav-link text-sm font-medium">
+                        Contact Us
+                    </a>
+
+                </nav>
+
+
+                <!-- RIGHT ACTIONS -->
+                <div class="flex items-center gap-3">
+
+                    <!-- DARK / LIGHT MODE -->
+                    <button
+                        id="theme-toggle"
+                        type="button"
+                        aria-label="Ganti tema"
+                        class="w-10 h-10 flex items-center justify-center rounded-full border border-beige dark:border-gray-700 hover:bg-beige dark:hover:bg-gray-800 transition">
+
+                        <span id="theme-icon" class="text-lg">☾</span>
+
+                    </button>
+
+
+                    <!-- MOBILE MENU BUTTON -->
+                    <button
+                        id="mobile-menu-button"
+                        type="button"
+                        aria-label="Buka menu navigasi"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-beige dark:border-gray-700 hover:bg-beige dark:hover:bg-gray-800 transition">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="20"
+                             height="20"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7"
+                             stroke-linecap="round">
+                            <path d="M4 7h16M4 12h16M4 17h16"/>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MOBILE NAVIGATION -->
+            <nav id="mobile-menu"
+                 class="hidden md:hidden border-t border-beige dark:border-gray-800 py-5">
+
+                <div class="flex flex-col gap-5">
+
+                    <a href="#home" class="mobile-nav-link text-sm font-medium hover:text-brown transition">
+                        Home
+                    </a>
+
+                    <a href="#rooms" class="mobile-nav-link text-sm font-medium hover:text-brown transition">
+                        Rooms
+                    </a>
+
+                    <a href="#contact" class="mobile-nav-link text-sm font-medium hover:text-brown transition">
+                        Contact Us
+                    </a>
+
+                </div>
+
+            </nav>
+
         </div>
 
-      <div id="kost-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Rendered via JavaScript -->
-      </div>
-    </main>
-  </div>
+    </header>
 
-  <script src="script.js"></script>
+
+    <!-- TEMPORARY PAGE SECTIONS -->
+    <!-- Konten lengkap akan kita buat pada tahap berikutnya -->
+
+    <main>
+
+        <section id="home" class="min-h-[55vh] flex items-center justify-center px-5">
+            <div class="text-center max-w-xl">
+                <p class="text-xs tracking-[0.3em] uppercase text-brown mb-4">
+                    Welcome to Kost Boiman
+                </p>
+
+                <h1 class="text-4xl md:text-6xl font-semibold tracking-tight mb-5">
+                    Your Comfort,<br>
+                    Our Priority.
+                </h1>
+
+                <p class="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
+                    Hunian nyaman untuk mendukung aktivitas dan keseharian Anda.
+                </p>
+            </div>
+        </section>
+
+
+        <section id="rooms" class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
+            <h2 class="text-xl font-semibold">Rooms — Akan kita buat pada Tahap 4</h2>
+        </section>
+
+
+        <section id="contact" class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
+            <h2 class="text-xl font-semibold">Contact Us — Akan kita buat pada Tahap 5</h2>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="py-6 text-center border-t border-beige dark:border-gray-800">
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+            © 2026 Kost Boiman. All Rights Reserved.
+        </p>
+    </footer>
+
 </body>
 </html>
