@@ -276,7 +276,7 @@ function renderRooms(category = 'Semua') {
                     <!-- TOMBOL WHATSAPP -->
                     <a
                         href="${room.tersedia
-                            ? `https://wa.me/6281234567890?text=${message}`
+                            ? `https://wa.me/6287742300083?text=${message}`
                             : '#'}"
                         ${room.tersedia
                             ? 'target="_blank" rel="noopener noreferrer"'
