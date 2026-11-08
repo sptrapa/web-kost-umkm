@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id" class="light">
 <head>
@@ -71,6 +70,18 @@
         #mobile-menu.hidden {
             display: none;
         }
+
+        /* Scroll horizontal rooms */
+        .room-scroll {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+        }
+        .room-scroll::-webkit-scrollbar { display: none; }
+        #kost-list { cursor: grab; }
+        #kost-list.is-dragging { cursor: grabbing; user-select: none; }
+        #kost-list:focus-visible { outline: 2px solid #8B7355; outline-offset: 4px; border-radius: 12px; }
     </style>
 
     <script src="script.js" defer></script>
@@ -465,15 +476,110 @@
 
 
 <!-- ==========================================
-     ROOMS PLACEHOLDER
+     ROOMS
 =========================================== -->
 
+<section id="rooms"
+    class="py-20 md:py-28 scroll-mt-20 border-t border-beige dark:border-gray-800 bg-cream dark:bg-[#1D1D1B] transition-colors duration-300">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-10">
+
+        <!-- HEADING + KONTROL PANAH -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+
+            <div class="max-w-2xl">
+                <p class="text-xs uppercase tracking-[0.3em] text-brown mb-5">
+                    Our Rooms
+                </p>
+
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-5">
+                    Pilih Kamar
+                    <span class="italic font-normal text-brown">Favoritmu.</span>
+                </h2>
+
+                <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Geser ke samping untuk melihat semua pilihan kamar,
+                    lalu hubungi kami langsung lewat WhatsApp.
+                </p>
+            </div>
+
+            <!-- Tombol panah (tampil otomatis jika kamar melebihi layar) -->
+            <div id="room-arrows" class="hidden items-center gap-3">
+                <button id="room-prev" type="button" aria-label="Kamar sebelumnya"
+                    class="w-11 h-11 flex items-center justify-center rounded-full border border-brown text-brown
+                    hover:bg-brown hover:text-white transition duration-300
+                    disabled:opacity-30 disabled:pointer-events-none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+                </button>
+                <button id="room-next" type="button" aria-label="Kamar berikutnya"
+                    class="w-11 h-11 flex items-center justify-center rounded-full border border-brown text-brown
+                    hover:bg-brown hover:text-white transition duration-300
+                    disabled:opacity-30 disabled:pointer-events-none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+                </button>
+            </div>
+
+        </div>
 
 
+        <!-- FILTER -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+
+            <!-- Kategori (digeser jika sempit) -->
+            <div id="filter-container"
+                class="room-scroll flex gap-2 overflow-x-auto -mx-5 px-5 sm:mx-0 sm:px-0"
+                role="group" aria-label="Filter kategori kamar">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+
+            <!-- Hanya tampilkan yang tersedia -->
+            <label class="inline-flex items-center gap-3 cursor-pointer select-none text-sm text-gray-600 dark:text-gray-300">
+                <input id="only-available" type="checkbox" class="peer sr-only">
+                <span class="relative w-10 h-6 rounded-full bg-gray-300 dark:bg-gray-700 transition
+                    peer-checked:bg-brown peer-focus-visible:ring-2 peer-focus-visible:ring-brown
+                    after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5
+                    after:rounded-full after:bg-white after:transition-transform
+                    peer-checked:after:translate-x-4"></span>
+                Hanya yang tersedia
+            </label>
+
+        </div>
 
 
+        <!-- DAFTAR KAMAR (SCROLL KE SAMPING) -->
+        <div class="relative -mx-5 lg:mx-0">
+
+            <div id="kost-list"
+                class="room-scroll flex items-stretch gap-5 md:gap-6 overflow-x-auto px-5 lg:px-0 pb-6
+                snap-x snap-mandatory scroll-px-5 lg:scroll-px-0"
+                tabindex="0" role="region" aria-label="Daftar kamar, geser ke samping">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+
+            <!-- Efek pudar di tepi -->
+            <div id="fade-left"
+                class="pointer-events-none absolute left-0 top-0 bottom-6 w-10 opacity-0 transition-opacity duration-300
+                bg-gradient-to-r from-cream dark:from-[#1D1D1B] to-transparent"></div>
+            <div id="fade-right"
+                class="pointer-events-none absolute right-0 top-0 bottom-6 w-10 opacity-0 transition-opacity duration-300
+                bg-gradient-to-l from-cream dark:from-[#1D1D1B] to-transparent"></div>
+
+        </div>
 
 
+        <!-- INDIKATOR POSISI SCROLL -->
+        <div id="room-progress-wrap" class="hidden mt-2 px-0">
+            <div class="h-1 rounded-full bg-beige dark:bg-gray-800 overflow-hidden">
+                <div id="room-progress" class="h-full rounded-full bg-brown transition-[margin,width] duration-150"
+                    style="width:30%;margin-left:0"></div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
 
 
 <!-- ==========================================
@@ -489,42 +595,6 @@
 
 
 
-
-        <section id="rooms" class="min-h-[30vh] flex items-center justify-center border-t border-beige dark:border-gray-800">
-                    <!-- FILTER KATEGORI KAMAR -->
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-8">
-
-    <div>
-        <p class="text-sm text-gray-600 dark:text-gray-300">
-            Pilih kategori kamar:
-        </p>
-    </div>
-
-    <div id="filter-container" class="flex flex-wrap gap-2">
-        <!-- Tombol filter dibuat otomatis oleh JavaScript -->
-    </div>
-
-</div>
-
-<!-- DAFTAR KAMAR HORIZONTAL -->
-<div
-    id="kost-list"
-    class="room-scroll flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scroll-smooth"
->
-    <!-- Kartu kamar dibuat otomatis oleh JavaScript -->
-</div>
-
-        <!-- Daftar Kamar -->
-        <div
-            id="kost-list"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-            <!-- Data kamar akan ditampilkan melalui JavaScript -->
-        </div>
-
-    </div>
-
-</section>
 
 <section id="contact"
     class="py-20 md:py-28 bg-cream dark:bg-[#1D1D1B] transition-colors duration-300">
